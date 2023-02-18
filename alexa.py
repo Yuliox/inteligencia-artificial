@@ -29,7 +29,7 @@ def listen():
         with sr.Microphone() as source:
             print("Escuchando...")
             voice = listener.listen(source)
-            comando = listener.recognize_google(voice, language='es-ES')
+            comando = listener.recognize_google(voice, language='es-MX')
             comando = comando.lower()
             
             if name in comando:
@@ -57,13 +57,14 @@ def run(comando):
             if i in comando:
                 subprocess.call(f'start chrome.exe {sites[i]}', shell=True)
                 talk(f'Abriendo {i}')
-    elif 'whatsaap' in comando:
+    elif 'abre whatsapp' in comando:
         pywhatkit.open_web()
     elif 'hora' in comando:
         hora = datetime.datetime.now().strftime('%I:%M %p')
         talk("Son las " + hora)
     elif 'busca' in comando:
         order = comando.replace('busca', '')
+        pywhatkit.search(order)
         wikipedia.set_lang("es")
         info = wikipedia.summary(order, 1)
         talk(info)
